@@ -15,5 +15,8 @@
   },
   "eslintConfig": {
     "extends": "./node_modules/standard/eslintrc.json"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.5.2"
   }
 }
