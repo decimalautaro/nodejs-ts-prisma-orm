@@ -1,10 +1,13 @@
 import express from 'express'
 import router from './routes'
+import morgan from 'morgan'
 
 const app = express()
 
 app.use(express.json({limit:'50mb'}))
-   .use('api',router)
+app.use("/api", router)
+
+app.use(morgan('dev'));
 
 const port = process.env.PORT ?? 3000
 
