@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import NotFoundError from '../errors/notFoundError';
 import errorHandler from '../middlewares/errorHandler';
 
-import user from './user';
+import user from "./user"
 
 const router = Router();
 
