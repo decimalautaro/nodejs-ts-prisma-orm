@@ -78,6 +78,7 @@ const update = async (req: Request, res: Response, next: NextFunction)=> {
         const user = await prisma.user.findFirst({where: {id: Number(id)}})
 
         if (!user) throw new FailError('error user not found')
+        if (data.email === user.email) throw new FailError("Error email exist.")
         
         const updatedUser = { ...user, ...data };
       
@@ -86,12 +87,10 @@ const update = async (req: Request, res: Response, next: NextFunction)=> {
         await prisma.user.update({where:{id: user.id}, data:updatedUser});
         return res.status(200).json(updatedUser);
 
-
     } catch (error) {
         next(error)
     }
 }
-
 
 export {
     create,

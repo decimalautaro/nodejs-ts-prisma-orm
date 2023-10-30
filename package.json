@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "nodemon --ignore dist --ignore node_modules"
+    "dev": "nodemon --ignore dist --ignore node_modules",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@types/express": "^4.17.20",
     "@types/morgan": "^1.9.7",
+    "jest": "^29.7.0",
     "prisma": "^5.5.2",
     "standard": "^17.1.0",
     "ts-node-dev": "^2.0.0",
