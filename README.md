@@ -8,6 +8,7 @@ npx prisma init --datasource-provider (tipo de base de datos: sqlite, postgres, 
 
 ## Ejecutar migracion:
 
-````
+```
 npx prisma migrate dev 
+
 ```
