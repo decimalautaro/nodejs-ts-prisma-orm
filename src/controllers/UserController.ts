@@ -59,5 +59,6 @@ const findById = async (req: Request, res: Response, next: NextFunction)=> {
 
 export {
     create,
-    findAll
+    findAll,
+    findById
 }
