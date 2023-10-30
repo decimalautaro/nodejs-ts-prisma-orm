@@ -56,9 +56,26 @@ const findById = async (req: Request, res: Response, next: NextFunction)=> {
     }
 }
 
+const remove = async (req: Request, res: Response, next: NextFunction)=> {
+    try {
+        const {id} = req.params
+
+        const user  = await prisma.user.findUnique({where: {id: Number(id)}})
+        if(!user) throw new FailError("User not exist.")
+
+        await prisma.user.delete({where:{id: Number(id)}})
+
+        res.sendStatus(204)
+        
+    } catch (error) {
+        next(error)
+    }
+}
+
 
 export {
     create,
     findAll,
-    findById
+    findById,
+    remove
 }
