@@ -15,17 +15,15 @@ try {
         email
     }
     const existEmail = await prisma.user.findUnique({where: {email : newUser.email}})
-    console.log(existEmail)
 
     if(existEmail) throw new FailError("Error email exists.")
     if(!newUser) throw new FailError("Error user not found.")
 
-    console.log(newUser)
     await prisma.user.create({
         data: newUser
     })
 
-    return res.json(newUser)
+    return res.status(201).json(newUser)
 
 } catch (error) {
     next(error)
@@ -35,7 +33,7 @@ try {
 const findAll = async (req: Request, res: Response, next: NextFunction)=> {
     try {
         const allUser : Array<IUser> = await prisma.user.findMany()
-        res.json(allUser)
+        res.status(200).json(allUser)
         
     } catch (error) {
         next(error)
@@ -49,7 +47,7 @@ const findById = async (req: Request, res: Response, next: NextFunction)=> {
         const user  = await prisma.user.findUnique({where: {id: Number(id)}})
         if(!user) throw new FailError("User not exist.")
 
-        res.json(user)
+        res.status(200).json(user)
         
     } catch (error) {
         next(error)
@@ -72,10 +70,33 @@ const remove = async (req: Request, res: Response, next: NextFunction)=> {
     }
 }
 
+const update = async (req: Request, res: Response, next: NextFunction)=> {
+    try {
+        const {id} = req.params
+        const data = req.body
+
+        const user = await prisma.user.findFirst({where: {id: Number(id)}})
+
+        if (!user) throw new FailError('error user not found')
+        
+        const updatedUser = { ...user, ...data };
+      
+       delete updatedUser.id
+
+        await prisma.user.update({where:{id: user.id}, data:updatedUser});
+        return res.status(200).json(updatedUser);
+
+
+    } catch (error) {
+        next(error)
+    }
+}
+
 
 export {
     create,
     findAll,
     findById,
-    remove
+    remove,
+    update
 }
